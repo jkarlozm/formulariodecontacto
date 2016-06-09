@@ -1,0 +1,40 @@
+/* ==========================================================================
+   Author's custom styles
+   ========================================================================== */
+
+html, body{
+	height: 100%;
+}
+
+body{
+	position: relative;
+	background-color: #F299E3;
+}
+div.container{
+	background-color: #fff;
+	height: 100%	
+}
+
+div.panel{
+	-webkit-transform: translateY(30%);
+	-ms-transform: translateY(30%);
+	-o-transform: translateY(30%);
+	transform: translateY(30%);
+}
+
+#textMessage{
+	height: 100px;
+	resize: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
