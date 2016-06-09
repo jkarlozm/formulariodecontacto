@@ -50,7 +50,9 @@
 	$encabezado .= 'Content-type: text/html; charset = UTF-8'."\r\n";
 	$encabezado .= 'FROM: '.$_POST["email"]."\r\n";
 
-	if (mail($destinatario, $asunto, $contenido, $encabezado)) 
+	$envioCorreo = mail($destinatario, $asunto, $contenido, $encabezado);
+
+	if ($envioCorreo) 
 		echo "1";	
 	else
 		echo "2";
