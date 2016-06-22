@@ -72,33 +72,35 @@ $(document).ready( function(){
 
 	//Botón para enviar mensaje
 	$("#enviarMensaje").click(function () {
-		if( validarNombre() && validarCorreo() && validarPagina() && validarMensaje() ) {
+		if( validarNombre() && validarCorreo() && validarPagina() && validarMensaje() && $("#codigoCaptcha").val().length > 0 ) {
 			$.ajax({
 				type: "POST",
 				url: "librerias/enviarMensaje.php",
-				data: {name: $("#nameUser").val(), email: $("#emailUser").val(), site: $("#siteWeb").val(), msj: $("#textMessage").val()},
+				data: {name: $("#nameUser").val(), email: $("#emailUser").val(), site: $("#siteWeb").val(), msj: $("#textMessage").val(), codCapt: $("#codigoCaptcha").val()},
 				success: function(response){
-					console.log(response);
 					switch(response){
 						case "1":
 							$("#mensajeAlerta").append('<div class="alert alert-success alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><p>"Mensaje Enviado"</p></div>');
 							$("#formContacto")[0].reset();
+							$("#iconInput, #iconInput1, #iconInput2, #iconInput3").remove();
+							$("#nameUser, #emailUser, #siteWeb, #textMessage").parent().removeClass("has-success");
 							break;
 						case "2":
-							$("#mensajeAlerta").append('<div class="alert alert-success alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><p>"El Mensaje no se a podido Enviado"</p></div>');							
+							$("#mensajeAlerta").append('<div class="alert alert-success alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><p>"El Mensaje no se a podido enviar"</p></div>');
+							break;
+						case "3":
+							$("#mensajeAlerta").append('<div class="alert alert-success alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><p>"El código catpcha es incorrecto"</p></div>');
 							break;
 					}
 				}
 			})
 		}
 		else{
-			$("#mensajeAlerta").alert('close');
 			validarNombre();
 			validarCorreo();
 			validarPagina();
 			validarMensaje();
 			$("#mensajeAlerta").append('<div class="alert alert-dismissible alert-info" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button> <p>"Hay campos vacios"</p></div>');
-			
 		}
 	})
 
